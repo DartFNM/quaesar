@@ -27,6 +27,10 @@ endif()
 
 if (WIN32)
   add_definitions(-D_HAS_STD_BYTE=0)
+  if(MSVC) # Enable Edit and Continue
+	add_compile_options("$<$<CONFIG:Debug>:/ZI>")
+    add_link_options("/INCREMENTAL")
+  endif()
 endif()
 
 include_directories(uae_src/include uae_src src .)
