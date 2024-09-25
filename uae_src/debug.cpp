@@ -7188,7 +7188,8 @@ static void debug_1 (void)
 		console_out (_T(">"));
 		console_flush ();
 		debug_linecounter = 0;
-		v = console_get (input, MAX_LINEWIDTH);
+		// TODO: CONFILCT: terminal stops execution when 'd' was pressed
+		v = -1; // console_get(input, MAX_LINEWIDTH);
 		if (v < 0)
 			return;
 		if (v == 0)
