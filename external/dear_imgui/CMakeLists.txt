@@ -24,6 +24,6 @@ add_library(imgui STATIC ${IMGUI_SOURCES})
 if (APPLE OR LINUX)
     target_link_libraries(imgui PRIVATE ${SDL2_LIBRARIES})
 else()
-    target_include_directories(quaesar PRIVATE "${CMAKE_SOURCE_DIR}/../sdl2/include")
+    target_include_directories(imgui PRIVATE "${CMAKE_SOURCE_DIR}/external/sdl2/include")
 endif()
 
