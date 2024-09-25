@@ -20,7 +20,7 @@ add_subdirectory(external/ADFlib)
 add_subdirectory(external/dear_imgui)
 add_subdirectory(external/capstone)
 
-if (APPLE OR LINUX)
+if (APPLE OR LINUX OR UNIX)
     find_package(SDL2 REQUIRED)
 endif()
 
@@ -174,6 +174,7 @@ add_executable(quaesar
     uae_src/scsi.cpp
     uae_src/scsiemul.cpp
     uae_src/scsitape.cpp
+    uae_src/serial.cpp
     uae_src/sndboard.cpp
     uae_src/statusline.cpp
     uae_src/tabletlibrary.cpp
@@ -203,8 +204,8 @@ file(GLOB_RECURSE CROSS_FILES "src/*.cpp")
 target_sources(quaesar PRIVATE ${CROSS_FILES})
 
 if (APPLE OR LINUX)
-	target_compile_options(quaesar PRIVATE -DUAE=1 -D_cdecl= -DFILEFLAG_WRITE=1 -DOS_NAME=\"linux\")
-	target_compile_options(quaesar PRIVATE -DUSHORT=uint16_t -DHWND=uint32_t -DHRESULT=uint32_t -DWPARAM=uint16_t -DLPARAM=uint32_t)
+      target_compile_options(quaesar PRIVATE -DUAE=1 -D_cdecl= -DFILEFLAG_WRITE=1 -DOS_NAME=\"linux\")
+	  target_compile_options(quaesar PRIVATE -DUSHORT=uint16_t -DHWND=uint32_t -DHRESULT=uint32_t -DWPARAM=uint16_t -DLPARAM=uint32_t)
     target_compile_definitions(quaesar PRIVATE FSUAE)
     target_include_directories(quaesar PRIVATE ${SDL2_INCLUDE_DIRS})
     target_link_libraries(quaesar PRIVATE ${SDL2_LIBRARIES})
@@ -225,7 +226,7 @@ if (APPLE)
     target_compile_options(quaesar PRIVATE -DFILEFLAG_DIR=1 -DFILEFLAG_DIR=1 -D_ftelli64=ftell -D_fseeki64=fseek -D_fseeko64=fseeko -Dfseeko64=fseeko -Dftello64=ftell)
 endif()
 
-if (LINUX)
+if (LINUX OR UNIX)
     target_compile_options(quaesar PRIVATE -DFILEFLAG_DIR=1 -D_ftelli64=ftello64 -D_fseeki64=fseeko64)
     target_link_libraries(quaesar PRIVATE dl)
 endif()
