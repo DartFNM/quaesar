@@ -52,6 +52,7 @@
 #include "readcpu.h"
 #include "cputbl.h"
 #include "keybuf.h"
+#include <debugger/debugger.h>
 
 static int trace_mode;
 static uae_u32 trace_param[3];
@@ -8783,4 +8784,10 @@ bool debug_sprintf(uaecptr addr, uae_u32 val, int size)
 		debugsprintf_mode = 0;
 	}
 	return true;
+}
+
+
+void qd::Debugger::applyConsoleCmd(const char *cmd) {
+    TCHAR* buf = (TCHAR *)cmd;
+    ::debug_line(buf);
 }

@@ -617,17 +617,9 @@ typedef long uae_atomic;
         exit(EXIT_FAILURE);                                                        \
     } while (0)
 
-
 // #define TRACE() do { printf("%s\n", __func__); } while (0)
 #define TRACE() \
     do {        \
     } while (0)
-
-
-// EASTL requires you to have an overload for the operator new[]
-inline void* __cdecl operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file,
-                                    int line) {
-    return new uint8_t[size];
-}
 
 #endif /* WINUAE_SYSCONFIG_H */
